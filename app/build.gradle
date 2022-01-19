@@ -83,6 +83,14 @@ dependencies {
     def test_version = "1.4.0"
     androidTestImplementation "androidx.test:core-ktx:$test_version"
     debugImplementation "androidx.test:core:$test_version"
+
+    // Koin testing tools
+    testImplementation "io.insert-koin:koin-test:$koin_version"
+    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
+
+    // Mockk
+    testImplementation 'io.mockk:mockk:1.12.2'
+
 }
 
 kapt {
