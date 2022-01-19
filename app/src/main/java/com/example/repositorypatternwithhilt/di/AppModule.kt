@@ -1,17 +1,11 @@
 package com.example.repositorypatternwithhilt.di
 
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.example.repositorypatternwithhilt.ui.MainViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object AppModule {
-    @Singleton
-    @Provides
-    fun provideSomeString(): String {
-        return "It's some string!"
-    }
+@ExperimentalCoroutinesApi
+val appModule = module {
+    viewModel { MainViewModel(get()) }
 }

@@ -3,10 +3,9 @@ package com.example.repositorypatternwithhilt.data.network.mappers
 import com.example.repositorypatternwithhilt.domain.model.Blog
 import com.example.repositorypatternwithhilt.domain.util.EntityMapper
 import com.example.repositorypatternwithhilt.data.network.model.BlogNetworkEntity
-import javax.inject.Inject
 
-class NetworkMapper
-@Inject constructor() : EntityMapper<BlogNetworkEntity, Blog> {
+class NetworkMapper : EntityMapper<BlogNetworkEntity, Blog> {
+
     override fun mapFromEntity(entity: BlogNetworkEntity): Blog {
         return Blog(
             id = entity.id,
@@ -30,4 +29,5 @@ class NetworkMapper
     fun mapFromEntityList(entities: List<BlogNetworkEntity>): List<Blog> {
         return entities.map { mapFromEntity(it) }
     }
+
 }

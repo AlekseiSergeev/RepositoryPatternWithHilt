@@ -1,23 +1,20 @@
 package com.example.repositorypatternwithhilt.ui
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.repositorypatternwithhilt.domain.model.Blog
-import com.example.repositorypatternwithhilt.repository.MainRepository
 import com.example.repositorypatternwithhilt.domain.state.DataState
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.repositorypatternwithhilt.repository.MainRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-@HiltViewModel
-class MainViewModel
-@Inject
-constructor(
-    private val mainRepository: MainRepository,
-    private val savedStateHandle: SavedStateHandle
+class MainViewModel (
+    private val mainRepository: MainRepository
 ) : ViewModel() {
 
     private val _dataState: MutableLiveData<DataState<List<Blog>>> = MutableLiveData()
@@ -26,7 +23,7 @@ constructor(
 
     fun setStateEvent(mainStateEvent: MainStateEvent) {
         viewModelScope.launch {
-            when(mainStateEvent){
+            when (mainStateEvent) {
                 is MainStateEvent.GetBlogEvents -> {
                     mainRepository.getBlog()
                         .onEach { dataState ->
@@ -36,14 +33,14 @@ constructor(
                 }
 
                 MainStateEvent.None -> {
-                // Nothing
+                    // Nothing
                 }
             }
         }
     }
 }
 
-sealed class MainStateEvent{
-    object GetBlogEvents: MainStateEvent()
-    object None: MainStateEvent()
+sealed class MainStateEvent {
+    object GetBlogEvents : MainStateEvent()
+    object None : MainStateEvent()
 }

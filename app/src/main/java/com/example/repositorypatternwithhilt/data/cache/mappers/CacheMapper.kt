@@ -3,10 +3,9 @@ package com.example.repositorypatternwithhilt.data.cache.mappers
 import com.example.repositorypatternwithhilt.data.cache.model.BlogCacheEntity
 import com.example.repositorypatternwithhilt.domain.model.Blog
 import com.example.repositorypatternwithhilt.domain.util.EntityMapper
-import javax.inject.Inject
 
-class CacheMapper
-@Inject constructor() : EntityMapper<BlogCacheEntity, Blog> {
+class CacheMapper : EntityMapper<BlogCacheEntity, Blog> {
+
     override fun mapFromEntity(entity: BlogCacheEntity): Blog {
         return Blog(
             id = entity.id,
@@ -30,4 +29,5 @@ class CacheMapper
     fun mapFromEntityList(entities: List<BlogCacheEntity>): List<Blog> {
         return entities.map { mapFromEntity(it) }
     }
+
 }
